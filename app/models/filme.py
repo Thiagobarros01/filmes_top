@@ -9,6 +9,7 @@ class Filme(db.Model):
     ano = db.Column(db.Integer)
     sinopse = db.Column(db.String)
     diretor = db.Column(db.String)
-    aluguel = db.relationship('Aluguel')
+    
+    alugueis = db.relationship('Aluguel', back_populates='filme')
 
    

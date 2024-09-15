@@ -7,5 +7,6 @@ class Aluguel(db.Model):
     filme_id = db.Column(db.Integer, db.ForeignKey('filmes.id'))
     data_aluguel = db.Column(db.DateTime)
     nota = db.Column(db.Integer)
-    usuario = db.relationship('Usuario')
-    filme = db.relationship('Filme')
+    
+    usuario = db.relationship('Usuario', back_populates='alugueis')
+    filme = db.relationship('Filme', back_populates='alugueis')
