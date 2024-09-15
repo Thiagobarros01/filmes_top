@@ -7,5 +7,5 @@ class Usuario(db.Model):
     celular = db.Column(db.Integer)
     email = db.Column(db.String, unique = True)
     
-    alugueis = db.relationship('Aluguel', back_populates='usuario')
+    
     

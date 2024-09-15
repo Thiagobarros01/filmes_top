@@ -8,5 +8,5 @@ class Aluguel(db.Model):
     data_aluguel = db.Column(db.DateTime)
     nota = db.Column(db.Integer)
     
-    usuario = db.relationship('Usuario', back_populates='alugueis')
-    filme = db.relationship('Filme', back_populates='alugueis')
+    usuario = db.relationship('Usuario')
+    filme = db.relationship('Filme')

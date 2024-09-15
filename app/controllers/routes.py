@@ -6,12 +6,6 @@ from datetime import datetime
 
 
 
-@app.route('/')
-@app.route('/api')
-def index():
-    return "Hello, World!"
-
-
 @app.route('/api/filmes', methods = ['GET'])
 def listar_filmes():
     #Obter o parametro na url de genero
@@ -38,7 +32,7 @@ def listar_filmes():
           'diretor' : filme.diretor
         }
      for filme in filmes] 
-    return jsonify(filmes_list)
+    return jsonify(filmes_list),200
 
 
 
@@ -62,7 +56,7 @@ def get_filme(id_filme):
         }
         ]
      
-    return jsonify(filme_json)
+    return jsonify(filme_json),200
     
 @app.route('/api/filmes/alugar', methods = ['POST'])
 def alugar_filme():
@@ -124,29 +118,14 @@ def adicionar_nota(id_filme,id_usuario):
     return jsonify({'Message': 'Nota atualizada com sucesso'}), 200 
     
           
-@app.route('/api/filmes/usuario/<int:id_usuario>/alugueis', methods = ['GET'])
-def ver_alugados(id_usuario):
-   
-    
+@app.route('/api/filmes/usuario/<int:id_usuario>/alugueis', methods = ['GET'])    
+def get_alugueis(id_usuario):
     usuario = Usuario.query.get(id_usuario)
-    
     if not usuario:
-        return jsonify({'message': 'Usuario nao encontrado'}),404
-    
-    alugueis = Aluguel.query.filter_by(usuario_id = id_usuario ).all()
-    
-    
-    
-    filmes_do_usuario = [{
-        'data_aluguel' : aluguel.data_aluguel,
-        'nota' : aluguel.nota,
-        'nome_do_filme' : aluguel.filme.nome
-                
-    }for aluguel in alugueis]
-    
-    
-    
-    return jsonify(filmes_do_usuario)
+        return jsonify({"Message": "Esse usuário não existe"}), 404
+
+    alugueis = Aluguel.query.filter_by(usuario_id=id_usuario).all()
+    return jsonify([{'filme': aluguel.filme.nome, 'nota': aluguel.nota, 'data_aluguel': aluguel.data_aluguel} for aluguel in alugueis]),200
     
     
     
