@@ -124,7 +124,7 @@ def adicionar_nota(id_filme,id_usuario):
     return jsonify({'Message': 'Nota atualizada com sucesso'}), 200 
     
           
-@app.route('/api/filmes/<int:id_usuario>/alugueis', methods = ['GET'])
+@app.route('/api/filmes/usuario/<int:id_usuario>/alugueis', methods = ['GET'])
 def ver_alugados(id_usuario):
    
     
