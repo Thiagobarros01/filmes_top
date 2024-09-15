@@ -35,7 +35,7 @@ def listar_filmes():
     return jsonify(filmes_list),200
 
 
-
+# Obter detalhes de um filme
 @app.route('/api/filmes/<int:id_filme>', methods = ['GET'])
 def get_filme(id_filme):
     #Obter o parametro na url de genero
@@ -57,7 +57,8 @@ def get_filme(id_filme):
         ]
      
     return jsonify(filme_json),200
-    
+
+# Alugar um filme    
 @app.route('/api/filmes/alugar', methods = ['POST'])
 def alugar_filme():
           
@@ -87,18 +88,19 @@ def alugar_filme():
     
     return jsonify({'Message': 'Filme alugado com sucesso!'}),201
    
-        
+# Adicionar nota a um filme alugado        
 @app.route('/api/filmes/<int:id_filme>/usuario/<int:id_usuario>', methods= ['PUT'])
 def adicionar_nota(id_filme,id_usuario):
     
-    nota = request.json['nota']
+    nota = request.form['nota']
        
     if nota is None:
-      return jsonify({'Message': 'Faltando parâmetros bota'}), 400
+      return jsonify({'Message': 'Faltando parâmetros'}), 400
      
     filme_id = Filme.query.get(id_filme)
     usuario_id = Usuario.query.get(id_usuario)
     
+    #Verifica se usuario existe ou Filme
     if not usuario_id:
         return jsonify({"Message": "Usuario não existe "}), 400
     
@@ -117,7 +119,7 @@ def adicionar_nota(id_filme,id_usuario):
     
     return jsonify({'Message': 'Nota atualizada com sucesso'}), 200 
     
-          
+# Obter histórico de aluguéis de um usuário          
 @app.route('/api/filmes/usuario/<int:id_usuario>/alugueis', methods = ['GET'])    
 def get_alugueis(id_usuario):
     usuario = Usuario.query.get(id_usuario)

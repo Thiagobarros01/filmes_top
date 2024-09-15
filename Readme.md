@@ -15,6 +15,7 @@ Esta é uma API para acessar filmes dos usuários da FilmesTop.com. Ela permite 
 ## Endpoints
 
 1. GET /api/filmes
+exemplo : /api/filmes?genero=Crime
 
 Descrição: Lista todos os filmes ou filtra filmes por gênero.
 
