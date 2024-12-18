@@ -9,6 +9,7 @@ class Usuario(db.Model):
     email = db.Column(db.String, unique = True)
 
 
+
     
     
     
